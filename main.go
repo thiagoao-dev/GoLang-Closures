@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-  word := "thiagoao"
+  word := "github.com/thiagoao"
   closure := InvertWord(word)
 
   for _ = range word {
@@ -14,10 +14,10 @@ func main() {
 }
 
 func InvertWord(s string) func() string {
-  word, iword := s, ""
+  w, iw := s, ""
   return func() string {
-    iword = word[:1] + iword
-    word  =  word[1:]
-    return iword
+    iw = w[:1] + iw
+    w  = w[1:]
+    return iw
   }
 }
