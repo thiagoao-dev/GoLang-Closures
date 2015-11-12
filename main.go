@@ -4,20 +4,42 @@ import (
 	"fmt"
 )
 
-func main() {
-  word := "github.com/thiagoao"
-  closure := InvertWord(word)
-
-  for _ = range word {
-    fmt.Printf("%s\n",closure())
-  }	
+type Word struct {
+	Word string
+	IWord string
 }
 
-func InvertWord(s string) func() string {
-  w, iw := s, ""
-  return func() string {
-    iw = w[:1] + iw
-    w  = w[1:]
-    return iw
+func (w *Word) SetWord(s string) {
+	w.Word = s
+}
+
+func (w *Word) GetWord() string {
+	return w.Word
+}
+
+func (w *Word) SetIWord(s string) {
+	w.IWord += s
+}
+
+func (w *Word) GetIWord() string {
+	return w.IWord
+}
+
+func main() {
+  word := Word{Word:"github.com/thiagoao"}
+  closure := InvertWord(&word)
+
+  for _ = range word.Word {
+    closure()
+  }
+  
+  fmt.Println(word.IWord)
+}
+
+func InvertWord(w *Word) func() {
+  s := w
+  return func() {
+    s.IWord = s.Word[:1] + s.IWord
+    s.Word  = s.Word[1:]
   }
 }
